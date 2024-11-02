@@ -1,0 +1,10 @@
+{
+    "configurations": [
+        {
+            "type": "command",
+            "name": "🔥 Firebase deploy",
+            "program": "firebase.cmd",
+            "args": ["deploy", "--only", "functions"],
+        },
+    ]
+}
