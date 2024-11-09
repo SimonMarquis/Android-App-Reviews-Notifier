@@ -63,8 +63,8 @@ exports.newResponseBlock = (review, comment) => BlockKit.richTextBlock(
  * @param {Schema$UserComment} comment
  */
 exports.footerUserBlock = comment => BlockKit.contextBlock(
-    BlockKit.mrkdwnElement(`*Device*: ${comment.deviceMetadata.productName}`),
-    BlockKit.mrkdwnElement(`*Brand*: ${comment.deviceMetadata.manufacturer}`),
+    BlockKit.mrkdwnElement(`*Device*: ${comment.deviceMetadata?.productName || "?"}`),
+    BlockKit.mrkdwnElement(`*Brand*: ${comment.deviceMetadata?.manufacturer || "?"}`),
     BlockKit.mrkdwnElement(`*API*: ${comment.androidOsVersion}`),
     BlockKit.mrkdwnElement(`*Version*: ${comment.appVersionName || "?"}${comment.appVersionCode ? ` (${comment.appVersionCode})` : ""}`),
     BlockKit.mrkdwnElement(`*Date*: ${Utils.dateOf(comment)}`),
