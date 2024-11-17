@@ -10,7 +10,7 @@
  */
 
 /** @type {AppDocument} */
-exports.DEFAULT_APP_DOCUMENT = {
+export const DEFAULT_APP_DOCUMENT = {
     applicationId: null,
     developerId: null,
     icon: null,

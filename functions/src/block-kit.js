@@ -10,28 +10,28 @@ const block = (type, ...elements) => ({
 /**
  * @param {...object} elements
  */
-exports.contextBlock = (...elements) => block("context", ...elements);
+export const contextBlock = (...elements) => block("context", ...elements);
 
 
 /**
  * @param {...object} elements
  */
-exports.richTextBlock = (...elements) => block("rich_text", ...elements);
+export const richTextBlock = (...elements) => block("rich_text", ...elements);
 
 /**
  * @param {...object} elements
  */
-exports.richTextSectionBlock = (...elements) => block("rich_text_section", ...elements);
+export const richTextSectionBlock = (...elements) => block("rich_text_section", ...elements);
 
 /**
  * @param {...object} elements
  */
-exports.richTextQuoteBlock = (...elements) => block("rich_text_quote", ...elements);
+export const richTextQuoteBlock = (...elements) => block("rich_text_quote", ...elements);
 
 /**
  * @param {string} text
  */
-exports.mrkdwnElement = (text) => ({
+export const mrkdwnElement = (text) => ({
     "type": "mrkdwn",
     "text": text,
 });
@@ -40,7 +40,7 @@ exports.mrkdwnElement = (text) => ({
  * @param {string} url
  * @param {string} alt
  */
-exports.imageElement = (url, alt = "") => ({
+export const imageElement = (url, alt = "") => ({
     "type": "image",
     "image_url": url,
     "alt_text": alt,
@@ -52,7 +52,7 @@ exports.imageElement = (url, alt = "") => ({
  * @param {boolean=} style.bold
  * @param {boolean=} style.italic
  */
-exports.textElement = (text, style) => ({
+export const textElement = (text, style) => ({
     "type": "text",
     "text": text,
     ...(style) && {"style": style},
@@ -62,7 +62,7 @@ exports.textElement = (text, style) => ({
  * @param {string} name
  * @param {string} unicode
  */
-exports.emojiElement = (name, unicode) => (
+export const emojiElement = (name, unicode) => (
     {
         "type": "emoji",
         "name": name,
@@ -72,14 +72,14 @@ exports.emojiElement = (name, unicode) => (
 /**
  * @param {string} text
  */
-exports.bold = (text) => `*${text?.trim()}*`;
+export const bold = (text) => `*${text?.trim()}*`;
 
 /**
  * {@link https://api.slack.com/reference/surfaces/formatting#linking-urls|Slack Links}
  * @param {string} text
  * @param {string} url
  */
-exports.linkify = (text, url) => `<${escape(url)}|${escape(text)}>`;
+export const linkify = (text, url) => `<${escape(url)}|${escape(text)}>`;
 
 /**
  * {@link https://api.slack.com/reference/surfaces/formatting#escaping|Slack Escaping text}

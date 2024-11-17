@@ -1,9 +1,9 @@
-const {initializeApp} = require("firebase-admin/app");
+import {initializeApp} from "firebase-admin/app";
 
 initializeApp();
 
-const reviews = require("./reviews")
+import * as reviews from "./reviews.js"
 
-exports.sanitizeAppDocument = reviews.sanitizeAppDocument;
-exports.scheduleAppsReviewsCheck = reviews.scheduleAppsReviewsCheck;
-exports.triggerAppsReviewsCheck = reviews.triggerAppsReviewsCheck;
+export const sanitizeAppDocument = reviews.sanitizeAppDocument;
+export const scheduleAppsReviewsCheck = reviews.scheduleAppsReviewsCheck;
+export const triggerAppsReviewsCheck = reviews.triggerAppsReviewsCheck;

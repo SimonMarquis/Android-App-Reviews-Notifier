@@ -1,17 +1,17 @@
 /** @typedef { import("googleapis").androidpublisher_v3 } */
 
-const {getApp} = require("firebase-admin/app");
-const {getFirestore} = require("firebase-admin/firestore");
+import {getApp} from "firebase-admin/app";
+import {getFirestore} from "firebase-admin/firestore";
 
-const BlockKit = require("./block-kit");
-const Utils = require("./utils");
-const localeEmoji = require("locale-emoji");
+import * as BlockKit from "./block-kit.js";
+import * as Utils  from "./utils.js";
+import localeEmoji from "locale-emoji";
 
 /**
  * @param {...any} blocks
  * @return {{blocks: any[]}}
  */
-exports.create = (...blocks) => ({
+export const create = (...blocks) => ({
     blocks: blocks,
     unfurl_links: false,
     unfurl_media: false,
@@ -20,7 +20,7 @@ exports.create = (...blocks) => ({
 /**
  * @param {FirebaseFirestore.DocumentData|AppDocument} app
  */
-exports.headerBlock = app => BlockKit.contextBlock(
+export const headerBlock = app => BlockKit.contextBlock(
     app.icon ? BlockKit.imageElement(app.icon, "") : undefined,
     BlockKit.mrkdwnElement(BlockKit.bold(BlockKit.linkify(app.name, Utils.appLink(app.packageName)))),
 );
@@ -29,7 +29,7 @@ exports.headerBlock = app => BlockKit.contextBlock(
  * @param {Schema$Review} review
  * @param {Schema$UserComment} comment
  */
-exports.newReviewBlock = (review, comment) => {
+export const newReviewBlock = (review, comment) => {
     const flag = localeEmoji(comment.reviewerLanguage) || "🏁";
     return BlockKit.richTextBlock(
         BlockKit.richTextQuoteBlock(
@@ -49,7 +49,7 @@ exports.newReviewBlock = (review, comment) => {
  * @param {Schema$Review} review
  * @param {Schema$DeveloperComment} comment
  */
-exports.newResponseBlock = (review, comment) => BlockKit.richTextBlock(
+export const newResponseBlock = (review, comment) => BlockKit.richTextBlock(
     BlockKit.richTextQuoteBlock(
         BlockKit.textElement("Response to: ", {bold: true}),
         BlockKit.textElement(review.authorName?.trim() || "(unknown)"),
@@ -62,7 +62,7 @@ exports.newResponseBlock = (review, comment) => BlockKit.richTextBlock(
 /**
  * @param {Schema$UserComment} comment
  */
-exports.footerUserBlock = comment => BlockKit.contextBlock(
+export const footerUserBlock = comment => BlockKit.contextBlock(
     BlockKit.mrkdwnElement(`*Device*: ${comment.deviceMetadata?.productName || "?"}`),
     BlockKit.mrkdwnElement(`*Brand*: ${comment.deviceMetadata?.manufacturer || "?"}`),
     BlockKit.mrkdwnElement(`*API*: ${comment.androidOsVersion}`),
@@ -73,7 +73,7 @@ exports.footerUserBlock = comment => BlockKit.contextBlock(
 /**
  * @param {Schema$DeveloperComment} comment
  */
-exports.footerDeveloperBlock = comment => BlockKit.contextBlock(BlockKit.mrkdwnElement(`*Date*: ${Utils.dateOf(comment)}`));
+export const footerDeveloperBlock = comment => BlockKit.contextBlock(BlockKit.mrkdwnElement(`*Date*: ${Utils.dateOf(comment)}`));
 
 /**
  * @param {QueryDocumentSnapshot<any,any>} document
@@ -81,7 +81,7 @@ exports.footerDeveloperBlock = comment => BlockKit.contextBlock(BlockKit.mrkdwnE
  * @param {Schema$Review} review
  * @param {Schema$UserComment|Schema$DeveloperComment} comment
  */
-exports.linksBlock = (document, app, review, comment) => BlockKit.contextBlock(
+export const linksBlock = (document, app, review, comment) => BlockKit.contextBlock(
     BlockKit.mrkdwnElement(
         [
             BlockKit.linkify("Reply", Utils.replyLink(app.developerId, app.applicationId, review.reviewId)),

@@ -1,30 +1,30 @@
 /** @typedef { import("googleapis").androidpublisher_v3 } */
 
-const {getFirestore} = require("firebase-admin/firestore");
+import {getFirestore} from "firebase-admin/firestore";
 
-const logger = require("firebase-functions/logger");
-const {defineSecret} = require("firebase-functions/params");
+import logger from "firebase-functions/logger";
+import {defineSecret} from "firebase-functions/params";
 
-const {onDocumentCreated} = require("firebase-functions/v2/firestore");
-const {onRequest} = require("firebase-functions/v2/https");
-const {onSchedule} = require("firebase-functions/v2/scheduler");
+import {onDocumentCreated} from "firebase-functions/v2/firestore";
+import {onRequest} from "firebase-functions/v2/https";
+import {onSchedule} from "firebase-functions/v2/scheduler";
 
 const serviceAccount = defineSecret("SERVICE_ACCOUNT");
 const slackIncomingWebhook = defineSecret("SLACK_INCOMING_WEBHOOK");
 
-const {google} = require("googleapis");
-const {IncomingWebhook} = require("@slack/webhook");
+import {google} from "googleapis";
+import {IncomingWebhook} from "@slack/webhook";
 
-const Types = require("./types");
-const Utils = require("./utils");
-const Messages = require("./messages");
+import * as Types from "./types.js";
+import * as Utils from "./utils.js";
+import * as Messages from "./messages.js";
 
-const apps = getFirestore().collection("apps");
+const apps = () => getFirestore().collection("apps");
 
 /**
  * Sanitize new `apps/{id}` documents with default values from {@link Types.DEFAULT_APP_DOCUMENT}.
  */
-exports.sanitizeAppDocument = onDocumentCreated("apps/{id}", async (event) => {
+export const sanitizeAppDocument = onDocumentCreated("apps/{id}", async (event) => {
     if (!event.data) return;
     logger.log("🆕 New document", event.data.data());
     await event.data.ref.set({...Types.DEFAULT_APP_DOCUMENT, ...event.data.data()}, {merge: true});
@@ -33,7 +33,7 @@ exports.sanitizeAppDocument = onDocumentCreated("apps/{id}", async (event) => {
 /**
  * Schedule automated reviews check.
  */
-exports.scheduleAppsReviewsCheck = onSchedule({
+export const scheduleAppsReviewsCheck = onSchedule({
     secrets: [serviceAccount, slackIncomingWebhook],
     schedule: "*/15 * * * *",
     timeZone: "UTC",
@@ -45,7 +45,7 @@ exports.scheduleAppsReviewsCheck = onSchedule({
 /**
  * Manual trigger for reviews check.
  */
-exports.triggerAppsReviewsCheck = onRequest({secrets: [serviceAccount, slackIncomingWebhook]}, async (request, response) => {
+export const triggerAppsReviewsCheck = onRequest({secrets: [serviceAccount, slackIncomingWebhook]}, async (request, response) => {
     logger.log("⚡");
     await checkReviews();
     response.sendStatus(200);
@@ -53,7 +53,7 @@ exports.triggerAppsReviewsCheck = onRequest({secrets: [serviceAccount, slackInco
 
 async function checkReviews() {
     /** @type {QuerySnapshot<DocumentData|AppDocument, DocumentData>} */
-    const snapshot = await apps.get();
+    const snapshot = await apps().get();
     if (snapshot.empty) return;
 
     const webhook = new IncomingWebhook(slackIncomingWebhook.value());
