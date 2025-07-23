@@ -16,7 +16,7 @@
   "main": "./src/index.js",
   "exports": "./src/index.js",
   "dependencies": {
-    "@slack/types": "^2.14.0",
+    "@slack/types": "^2.15.0",
     "@slack/webhook": "^7.0.3",
     "firebase-admin": "^12.1.0",
     "firebase-functions": "^6.1.0",
