@@ -20,7 +20,7 @@
     "@slack/webhook": "^7.0.5",
     "firebase-admin": "^13.4.0",
     "firebase-functions": "^6.4.0",
-    "googleapis": "^144.0.0",
+    "googleapis": "^154.0.0",
     "locale-emoji": "^0.3.0"
   },
   "devDependencies": {
