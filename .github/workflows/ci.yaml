@@ -18,4 +18,5 @@ jobs:
         with:
             node-version: lts/Jod
             cache: npm
+            cache-dependency-path: functions
       - run: npm --prefix functions run lint
