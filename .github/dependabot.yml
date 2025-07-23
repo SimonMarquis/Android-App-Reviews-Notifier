@@ -4,3 +4,11 @@ updates:
     directory: /functions
     schedule:
       interval: weekly
+    groups:
+      npm-minor-and-patch:
+        applies-to: version-updates
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
