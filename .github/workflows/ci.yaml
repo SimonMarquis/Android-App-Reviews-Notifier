@@ -20,5 +20,6 @@ jobs:
         with:
             node-version: lts/Jod
             cache: npm
-            cache-dependency-path: functions
+            cache-dependency-path: functions/package-lock.json
+      - run: npm --prefix functions install
       - run: npm --prefix functions run lint
