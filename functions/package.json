@@ -18,9 +18,9 @@
   "dependencies": {
     "@slack/types": "^2.19.0",
     "@slack/webhook": "^7.0.6",
-    "firebase-admin": "^13.6.0",
+    "firebase-admin": "^13.6.1",
     "firebase-functions": "^7.0.5",
-    "googleapis": "^171.2.0",
+    "googleapis": "^171.4.0",
     "locale-emoji": "^0.3.0"
   },
   "devDependencies": {
