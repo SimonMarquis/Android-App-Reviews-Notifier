@@ -2,7 +2,7 @@
 
 import {getFirestore} from "firebase-admin/firestore";
 
-import logger from "firebase-functions/logger";
+import * as logger from "firebase-functions/logger";
 import {defineSecret} from "firebase-functions/params";
 
 import {onDocumentCreated} from "firebase-functions/v2/firestore";

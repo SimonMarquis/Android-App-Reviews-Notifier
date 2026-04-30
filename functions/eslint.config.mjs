@@ -4,6 +4,9 @@ import pluginJs from "@eslint/js";
 
 export default [
     {
+        ignores: ["eslint.config.mjs"],
+    },
+    {
         languageOptions: {
             globals: {...globals.builtin, ...globals.node},
             sourceType: "module",
@@ -15,6 +18,7 @@ export default [
             "no-restricted-globals": ["error", "name", "length"],
             "prefer-arrow-callback": "error",
             "quotes": ["error", "double", {"allowTemplateLiterals": true}],
+            "max-len": "off",
         },
     },
 ];
